@@ -43,7 +43,7 @@ class Login extends Component {
 
 		return (
 			<div>
-				<div>{this.props.errors && console.log(this.props.errors)}</div>
+				{this.props.errors && <p>{this.props.errors}</p>}
 				<form onSubmit={this.loginUser}>
 					<input
 						type="text"

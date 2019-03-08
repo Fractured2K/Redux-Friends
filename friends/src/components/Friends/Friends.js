@@ -1,5 +1,21 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const Friends = () => <h2>Friends</h2>;
+class Friends extends Component {
+	componentDidMount() {
+		this.props.fetchFriends();
+	}
 
-export default Friends;
+	render() {
+		return (
+			<div>
+				<h2>Friends</h2>
+			</div>
+		);
+	}
+}
+
+export default connect(
+	null,
+	{ fetchFriends }
+)(Friends);
