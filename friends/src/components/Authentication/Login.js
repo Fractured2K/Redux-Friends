@@ -1,24 +1,29 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import loginUser from "../../actions/authenticationActions";
+import { loginUser } from "../../actions/authenticationActions";
 
 class Login extends Component {
 	state = {
-		username: "",
-		password: ""
+		credentials: {
+			username: "",
+			password: ""
+		}
 	};
 
 	handleChanges = e => {
 		this.setState({
-			[e.target.name]: e.target.value
+			credentials: {
+				...this.state.credentials,
+				[e.target.name]: e.target.value
+			}
 		});
 	};
 
 	loginUser = e => {
 		e.preventDefault();
 
-		// action creator
+		this.props.loginUser(this.state.credentials);
 
 		this.setState({
 			username: "",
@@ -27,6 +32,10 @@ class Login extends Component {
 	};
 
 	render() {
+		if (this.props.fetching) {
+			return <div>Logging In</div>;
+		}
+
 		return (
 			<div>
 				<form onSubmit={this.loginUser}>
@@ -53,4 +62,12 @@ class Login extends Component {
 	}
 }
 
-export default Login;
+const mapStateToProps = (state, ownProps) => ({
+	errors: state.user.errors,
+	fetching: state.user.fetching
+});
+
+export default connect(
+	mapStateToProps,
+	{ loginUser }
+)(Login);
