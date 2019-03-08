@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authenticationActions";
 
@@ -23,7 +24,9 @@ class Login extends Component {
 	loginUser = e => {
 		e.preventDefault();
 
-		this.props.loginUser(this.state.credentials);
+		this.props
+			.loginUser(this.state.credentials)
+			.then(() => this.props.history.push("/friends"));
 
 		this.setState({
 			username: "",
@@ -32,12 +35,15 @@ class Login extends Component {
 	};
 
 	render() {
+		if (localStorage.getItem("token")) return <Redirect to="/friends" />;
+
 		if (this.props.fetching) {
 			return <div>Logging In</div>;
 		}
 
 		return (
 			<div>
+				<div>{this.props.errors && console.log(this.props.errors)}</div>
 				<form onSubmit={this.loginUser}>
 					<input
 						type="text"

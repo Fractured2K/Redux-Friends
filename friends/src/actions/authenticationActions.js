@@ -9,13 +9,13 @@ import {
 export const loginUser = creds => dispatch => {
 	dispatch({ type: LOGIN_USER_START });
 
-	axios
+	return axios
 		.post("http://localhost:5000/api/login", creds)
 		.then(res => {
 			localStorage.setItem("token", res.data.payload);
 			dispatch({ type: LOGIN_USER_SUCCESS, payload: res.data.payload });
 		})
-		.catch(err => {
-			dispatch({ type: LOGIN_USER_FAILURE, payload: err.message });
+		.catch(error => {
+			dispatch({ type: LOGIN_USER_FAILURE, payload: error.message });
 		});
 };

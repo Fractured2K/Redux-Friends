@@ -8,7 +8,7 @@ const initialState = {
 	loggingIn: false,
 	errors: null,
 	fetching: false,
-	authenticated: false
+	isAuthenticated: false
 };
 
 export default (state = initialState, action) => {
@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
 				...state,
 				errors: null,
 				fetching: false,
-				authenticated: true
+				isAuthenticated: true
 			};
 		case LOGIN_USER_FAILURE:
 			return {
@@ -32,7 +32,6 @@ export default (state = initialState, action) => {
 				errors: action.payload,
 				fetching: false
 			};
-
 		default:
 			return state;
 	}
