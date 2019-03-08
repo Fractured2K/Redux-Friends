@@ -1,3 +1,8 @@
+import React, { Component } from "react";
+
+import { connect } from "react-redux";
+import loginUser from "../../actions/authenticationActions";
+
 class Login extends Component {
 	state = {
 		username: "",
@@ -12,6 +17,8 @@ class Login extends Component {
 
 	loginUser = e => {
 		e.preventDefault();
+
+		// action creator
 
 		this.setState({
 			username: "",
